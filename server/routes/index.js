@@ -1,10 +1,11 @@
 module.exports = [
-  {
-    method: 'GET',
-    path: '/',
-    handler: 'myController.index',
-    config: {
-      policies: [],
-    },
-  },
+  // {
+  //   method: 'GET',
+  //   path: '/pay-transactions',
+  //   handler: 'payu.findTransactions',
+  //   config: {
+  //     auth: false,  // XXX This needs to change
+  //     policies: [],
+  //   },
+  // },
 ];

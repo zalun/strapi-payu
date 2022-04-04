@@ -1,3 +1,7 @@
 # Strapi plugin payu
 
-A quick description of payu.
+## Installation
+
+```bash
+strapi plugin add payu
+```
