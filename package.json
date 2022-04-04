@@ -1,19 +1,21 @@
 {
-  "name": "payu",
-  "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "name": "strapi-payu",
+  "version": "0.0.1",
+  "description": "PayU payment link plugin for Strapi.",
   "strapi": {
     "name": "payu",
-    "description": "Description of payu plugin",
+    "description": "PayU payment link plugin.",
     "kind": "plugin"
   },
   "dependencies": {},
   "author": {
-    "name": "A Strapi developer"
+    "name": "Piotr Zalewa",
+    "email": "zaloon@gmail.com"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Piotr Zalewa",
+      "email": "zaloon@gmail.com"
     }
   ],
   "engines": {
