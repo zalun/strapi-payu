@@ -1,7 +1,11 @@
 'use strict';
 
-const myService = require('./my-service');
+const auth = require('./auth');
+const settings = require('./settings');
+const paymentLink = require('./payment-link');
 
 module.exports = {
-  myService,
+  auth,
+  settings,
+  paymentLink,
 };

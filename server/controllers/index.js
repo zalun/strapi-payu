@@ -1,7 +1,7 @@
 'use strict';
 
-const myController = require('./my-controller');
+const paymentLink = require('./payment-link');
 
 module.exports = {
-  myController,
+  paymentLink,
 };
