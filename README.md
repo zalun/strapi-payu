@@ -8,7 +8,7 @@ strapi plugin add payu
 
 ## Workflow
 
-### Redirect workflow directly from the frontend
+### Payment link workflow directly from the frontend
 
 ```mermaid
 sequenceDiagram
@@ -26,3 +26,18 @@ sequenceDiagram
   Plugin ->> Frontend: Payment link
 ```
 
+### Webhook flow
+
+```mermaid
+sequenceDiagram
+  participant Frontend
+  participant PayU
+  actor User
+  participant Plugin
+
+  Frontend ->> PayU: PaymentLink is requested
+  User ->> PayU: Authorization
+  PayU ->> Plugin: PENDING status webhook
+  PayU ->> Frontend: Redirect to the success page<br/>defined in PayU
+  PayU ->> Plugin: SUCCESS status webhook
+```

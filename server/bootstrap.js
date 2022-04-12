@@ -13,6 +13,7 @@ module.exports = async ({ strapi }) => {
       data: { mode: "sandbox" }
     });
   }
+  
   if (!["sandbox", "production"].includes(configuration.mode)) {
     // some update in the schema
     strapi.log.warn("Force update to default PayU configuration", configurationCollection);
@@ -22,5 +23,4 @@ module.exports = async ({ strapi }) => {
       data: { mode: "sandbox" }
     });
   }
-
 }
