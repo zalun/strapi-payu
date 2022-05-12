@@ -1,20 +1,21 @@
 // server/services/auth.js
-'use strict';
-const payu = require("../utils/payu");
+
+const payu = require('../utils/payu')
 
 module.exports = ({ strapi }) => ({
 
   async getToken(settings) {
     // Collect settings from database
-    if (!settings) {
-      data = await strapi
+    let localSettings = settings
+    if (!localSettings) {
+      const data = await strapi
         .plugin('payu')
         .service('settings')
-        .getSettings();
-      settings = data.settings
+        .getSettings()
+      localSettings = data.settings
     }
     // Return the getToken promise
-    const token = await payu.getToken(settings);
-    return { token };
-  }
-});
+    const token = await payu.getToken(localSettings)
+    return { token }
+  },
+})

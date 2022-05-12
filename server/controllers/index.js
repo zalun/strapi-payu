@@ -1,7 +1,5 @@
-'use strict';
-
-const paymentLink = require('./payment-link');
+const paymentLink = require('./payment-link')
 
 module.exports = {
   paymentLink,
-};
+}

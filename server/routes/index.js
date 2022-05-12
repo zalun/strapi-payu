@@ -8,7 +8,7 @@ module.exports = [
       auth: false,
       policies: [],
     },
-  }, 
+  },
   {
     method: 'POST',
     path: '/transactions',
@@ -27,4 +27,4 @@ module.exports = [
       policies: [],
     },
   },
-];
+]

@@ -1,12 +1,12 @@
 // server/utils/payu.js
-'use strict';
-const axios = require("axios")
+
+const axios = require('axios')
 
 const cachedToken = {
 }
 
 module.exports = {
-  getToken: async function(settings) {
+  async getToken(settings) {
     const { payuAuthorizeUrl, clientId, clientSecret } = settings
 
     if (!cachedToken[clientId]) {
@@ -17,14 +17,14 @@ module.exports = {
       && cachedToken[clientId].expires_in > Date.now()) {
       return cachedToken[clientId].token
     }
-    
+
     const params = new URLSearchParams()
-    params.append("grant_type", "client_credentials")
-    params.append("client_id", clientId)
-    params.append("client_secret", clientSecret)
-    
-    const headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    const req = await axios.post(payuAuthorizeUrl, params,{ headers })    
+    params.append('grant_type', 'client_credentials')
+    params.append('client_id', clientId)
+    params.append('client_secret', clientSecret)
+
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+    const req = await axios.post(payuAuthorizeUrl, params, { headers })
 
     cachedToken[clientId].token = req.data.access_token
     cachedToken[clientId].expires_in = Date.now() + req.data.expires_in * 1000
@@ -33,29 +33,28 @@ module.exports = {
   },
 
   /**
-   * 
-   * @param {object} settings 
-   * @param {str} token 
-   * @param {object} transaction 
-   * @param {str} customerIp 
-   * @returns 
+   *
+   * @param {object} settings
+   * @param {str} token
+   * @param {object} transaction
+   * @param {str} customerIp
    */
-  createOrder: async function(settings, token, transaction) {
+  async createOrder(settings, token, transaction) {
     const { payuApiUrl, merchantPosId, notifyUrl } = settings
     const validityTime = 24 * 60 * 60
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      Authorization: `Bearer ${token}`,
     }
-    const options = { headers, "maxRedirects": 0 }
-    const { 
-      uid: extOrderId, 
+    const options = { headers, maxRedirects: 0 }
+    const {
+      uid: extOrderId,
       customerIp,
-      currencyCode, 
-      totalAmount, 
-      description, 
-      buyer, 
-      products 
+      currencyCode,
+      totalAmount,
+      description,
+      buyer,
+      products,
     } = transaction
 
     const body = {
@@ -76,21 +75,21 @@ module.exports = {
     if (products) {
       body.products = products
     }
-    const url = payuApiUrl + "/orders"
+    const url = `${payuApiUrl}/orders`
     // The post wants to redirect the user to the payment page
     // since we've set the `maxRedirects` to 0, an error will be thrown
     try {
-      await axios.post(url, body, options)
-    } catch(error) {
+      return await axios.post(url, body, options)
+    } catch (error) {
       if (
-        error.response.data.status 
-        && error.response.data.status.statusCode === "SUCCESS"
+        error.response.data.status
+        && error.response.data.status.statusCode === 'SUCCESS'
       ) {
         return error.response.data
       }
-      console.error(`Failed to get payment link.`)
+      console.error('Failed to get payment link.')
       console.error(error.response)
       return error.response.data.status
     }
-  }
+  },
 }

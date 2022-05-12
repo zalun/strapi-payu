@@ -1,12 +1,11 @@
 // server/controllers/payment-link,js
-'use strict';
 
 module.exports = {
   async index(ctx) {
     ctx.body = await strapi
       .plugin('payu')
       .service('auth')
-      .getToken();
+      .getToken()
   },
   async createTransaction(ctx) {
     const data = ctx.request.body
@@ -14,7 +13,7 @@ module.exports = {
     ctx.body = await strapi
       .plugin('payu')
       .service('paymentLink')
-      .createTransaction(data);
+      .createTransaction(data)
   },
 
   async handleWebhook(ctx) {
@@ -23,6 +22,6 @@ module.exports = {
     ctx.body = await strapi
       .plugin('payu')
       .service('paymentLink')
-      .handleWebhook(data);
+      .handleWebhook(data)
   },
-};
+}
